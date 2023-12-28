@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15...3.26)
 
-project(nanobind_example LANGUAGES CXX)
+project(pylibsqsh LANGUAGES CXX)
 
 if (NOT SKBUILD)
   message(WARNING "\
@@ -33,10 +33,13 @@ find_package(Python 3.8
 # Import nanobind through CMake's find_package mechanism
 find_package(nanobind CONFIG REQUIRED)
 
+include_directories("sqsh-tools/include")
+link_directories("sqsh-tools/build/libsqsh")
+
 # We are now ready to compile the actual extension module
 nanobind_add_module(
   # Name of the extension
-  nanobind_example_ext
+  pylibsqsh_ext
 
   # Target the stable ABI for Python 3.12+, which reduces
   # the number of binary wheels that must be built. This
@@ -55,5 +58,7 @@ nanobind_add_module(
   src/nanobind_example_ext.cpp
 )
 
+target_link_libraries(pylibsqsh_ext PRIVATE sqsh)
+
 # Install directive for scikit-build-core
-install(TARGETS nanobind_example_ext LIBRARY DESTINATION nanobind_example)
+install(TARGETS pylibsqsh_ext LIBRARY DESTINATION pylibsqsh)
