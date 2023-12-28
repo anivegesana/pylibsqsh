@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.15...3.26)
 
 project(pylibsqsh LANGUAGES CXX)
 
+include(ExternalProject)
+
 if (NOT SKBUILD)
   message(WARNING "\
   This CMake file is meant to be executed using 'scikit-build'. Running
@@ -32,6 +34,16 @@ find_package(Python 3.8
 
 # Import nanobind through CMake's find_package mechanism
 find_package(nanobind CONFIG REQUIRED)
+
+ExternalProject_Add(
+  sqsh-tools
+  SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/sqsh-tools"
+  DOWNLOAD_COMMAND ""
+  CONFIGURE_COMMAND ""
+  BUILD_COMMAND make
+  BUILD_IN_SOURCE true
+  INSTALL_COMMAND ""
+)
 
 include_directories("sqsh-tools/include")
 link_directories("sqsh-tools/build/libsqsh")

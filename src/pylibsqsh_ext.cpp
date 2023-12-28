@@ -53,27 +53,10 @@ out:
 	return out;
 }
 
-// class PySqshFile;
-
-// class PySqshFileIterator {
-//     struct SqshFileIterator* itr;
-// public:
-//     PySqshFileIterator(PySqshFile file) {
-//         int err;
-//         itr = sqsh_file_iterator_new(file.subfd, &err);
-//         if (itr == NULL) PYSQSH_RAISE(err);
-//     }
-//     inline void close() {
-//         PYSQSH_CHECK_CLOSED(itr);
-//         int err = sqsh_file_iterator_free(itr);
-//         if (err != 0) PYSQSH_RAISE(err);
-//         itr = NULL;
-//     }
-// }
-
 class PySqshFile {
     struct SqshFile* subfd;
     friend class PySqshArchive;
+protected:
     PySqshFile(struct SqshFile* subfd) : subfd(subfd) {}
 public:
     inline void close(bool idempotent = false) {
@@ -140,6 +123,22 @@ public:
         return _pysqsh_file_content(subfd);
     }
 };
+
+// class PySqshFileIterator {
+//     struct SqshFileIterator* itr;
+// public:
+//     PySqshFileIterator(PySqshFile file) {
+//         int err;
+//         itr = sqsh_file_iterator_new(file.subfd, &err);
+//         if (itr == NULL) PYSQSH_RAISE(err);
+//     }
+//     inline void close() {
+//         PYSQSH_CHECK_CLOSED(itr);
+//         int err = sqsh_file_iterator_free(itr);
+//         if (err != 0) PYSQSH_RAISE(err);
+//         itr = NULL;
+//     }
+// }
 
 class PySqshArchive {
     struct SqshArchive* fd;
@@ -249,6 +248,3 @@ NB_MODULE(pylibsqsh_ext, m) {
         .value("FIFO", SQSH_FILE_TYPE_FIFO)
         .value("SOCKET", SQSH_FILE_TYPE_SOCKET);
 }
-
-        // .def("bark", &Dog::bark)
-        // .def_rw("name", &Dog::name);

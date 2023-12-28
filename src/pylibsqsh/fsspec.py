@@ -61,4 +61,6 @@ class SquashFSFileSystem(AbstractArchiveFileSystem):
         assert autocommit
         return self.sqshfs.open(path)
 
-fsspec.register_implementation('squashfs', SquashFSFileSystem)
+
+def _register():
+    fsspec.register_implementation('squashfs', SquashFSFileSystem)

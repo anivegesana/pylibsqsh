@@ -1,5 +1,5 @@
 [build-system]
-requires = ["scikit-build-core >=0.4.3", "nanobind >=1.3.2"]
+requires = ["scikit-build-core >=0.4.3", "nanobind >=1.3.2", "ninja", "meson"]
 build-backend = "scikit_build_core.build"
 
 [project]
@@ -17,6 +17,9 @@ classifiers = [
 
 [project.urls]
 Homepage = "https://github.com/wjakob/nanobind_example"
+
+[project.entry-points."fsspec.specs"]
+squashfs = "pylibsqsh.fsspec.SquashFSFileSystem"
 
 
 [tool.scikit-build]
