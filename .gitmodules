@@ -1,0 +1,3 @@
+[submodule "sqsh-tools"]
+	path = sqsh-tools
+	url = https://github.com/Gottox/sqsh-tools
