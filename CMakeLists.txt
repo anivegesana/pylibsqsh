@@ -55,7 +55,7 @@ nanobind_add_module(
   NB_STATIC
 
   # Source code goes here
-  src/nanobind_example_ext.cpp
+  src/pylibsqsh_ext.cpp
 )
 
 target_link_libraries(pylibsqsh_ext PRIVATE sqsh)
